@@ -80,7 +80,12 @@ if __name__ == '__main__':
          "fullgrad": FullGrad,
          "gradcamelementwise": GradCAMElementWise}
 
-    model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
+    # model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
+
+    model = models.resnet18()
+    checkpoint = torch.load("C:/Users/MVCLAB/Desktop/GradCam/pytorch-grad-cam/weight_backup/CA_perlin_cutmix_model.pkl")
+    model.load_state_dict(checkpoint,False)
+
     target_layers = [model.layer4]
 
     file_list =[]
