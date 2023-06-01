@@ -40,6 +40,7 @@ def get_args():
         type=str,
         default= './TestImage', 
         help='Input image file path' )
+    parser.add_argument('--source_file_path',type=str,default= '', help='Source image file path' )
     parser.add_argument('--aug_smooth', action='store_true',
                         help='Apply test time augmentation to smooth the CAM')
     parser.add_argument(
@@ -83,7 +84,10 @@ if __name__ == '__main__':
     # model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
 
     model = models.resnet18()
-    checkpoint = torch.load("C:/Users/MVCLAB/Desktop/GradCam/pytorch-grad-cam/weight_backup/CA_perlin_cutmix_model.pkl")
+    source_weight_file_path = args.source_file_path
+    # checkpoint = torch.load("C:/Users/MVCLAB/Desktop/DRA/experiment/CA/experiment_candle_CA/CA_candle_model.pkl")
+    checkpoint = torch.load(source_weight_file_path)
+
     model.load_state_dict(checkpoint,False)
 
     target_layers = [model.layer4]
@@ -92,8 +96,8 @@ if __name__ == '__main__':
     file_path = args.image_file_path
     
     anomaly_class= file_path.split('/')
-    os.mkdir(anomaly_class[6])
-    save_target_file_path = 'C:/Users/MVCLAB/Desktop/GradCam/pytorch-grad-cam' +'/'+anomaly_class[6]
+    os.mkdir(anomaly_class[7])
+    save_target_file_path = 'C:/Users/MVCLAB/Desktop/GradCam/pytorch-grad-cam' +'/'+anomaly_class[7]
 
     for file in os.listdir(file_path):
         file_list.append(file)
